@@ -107,7 +107,7 @@ void SLL::deleteLast()
  if(head!=nullptr)
  {
   Node *t;
-  if(head->next==nullptr)
+  if(head->next==nullptr)//single node in the list
   {
     delete head;
     head=nullptr;
@@ -123,7 +123,6 @@ void SLL::deleteLast()
   }
  }
 }
-
 void SLL::deleteNode(Node*temp)
 {
   if(temp!=nullptr)
@@ -145,7 +144,5 @@ void SLL::deleteNode(Node*temp)
       }  
     }
   }
-  else
-    deleteLast();
 }
 
