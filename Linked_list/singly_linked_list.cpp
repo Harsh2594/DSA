@@ -15,7 +15,11 @@ class SLL
     Node* head;
   public:
     SLL(){head=nullptr;}
-    ~SLL(){delete []head;}
+    ~SLL()
+    {
+      while(head!=nullptr)
+        deleteFirst();
+    }
     void insertAtStart(int);
     void insertAtEnd(int);
     void insertAfter(Node*,int);
@@ -23,6 +27,7 @@ class SLL
     void deleteFirst();
     void deleteLast();
     void deleteNode(Node*);
+
 };
 
 void SLL::insertAtStart(int data)
@@ -63,31 +68,84 @@ Node* SLL::searchItem(int data)
 
 void SLL::insertAfter(Node *temp,int data)
 {
-  Node*t = searchItem(temp->data);
-  Node *n = new Node;
-  n->data=data;
-  n->next=t->next;
-  t->next=n;
+  if(temp!=nullptr)
+  {
+    //check if temp is a valid node in the list
+    Node *t;
+    t=head;
+    while(t!=nullptr)
+    {
+      if(t==temp)
+        break;
+      t = t->next;
+    }
+    if(t==nullptr)
+      cout<<"Specified node does not belong to the list";
+    else
+      {
+        //make a new Node:
+        t = new Node;
+        t->data=data;
+        t->next=temp->next;
+        temp->next=t;
+      }  
+
+  }
 }
 void SLL::deleteFirst()
 {
   if(head!=nullptr)
-    head = head->next->next;
+  {
+    Node *t;
+    t = head;
+    head=head->next;
+    delete t;
+  }
 }
 void SLL::deleteLast()
 {
-  Node *temp;
-  temp = head;
-  while(temp->next->next!=nullptr)
-    temp=temp->next;
-  temp->next=nullptr;  
+ if(head!=nullptr)
+ {
+  Node *t;
+  if(head->next==nullptr)
+  {
+    delete head;
+    head=nullptr;
+  }
+  else{
+    t=head;
+    while(t->next->next!=nullptr)
+    {
+      t=t->next;
+    }
+    delete t->next;
+    t->next=nullptr;
+  }
+ }
 }
+
 void SLL::deleteNode(Node*temp)
 {
-  Node *t;
-  t = head;
-  while(t->next->data!=temp->data)
-    t = t->next;
-  t->next = temp->next;  
+  if(temp!=nullptr)
+  {
+    Node *t = searchItem(temp->data);
+    if(t==temp)
+    {
+      t = head;
+      if(temp==head)
+        deleteFirst();
+      else
+      {
+        while(t->next!=temp)
+        {
+          t = t->next;
+        }
+        t->next=temp->next;
+        delete temp;
+      }  
+    }
+  }
+  else
+    deleteLast();
 }
 
