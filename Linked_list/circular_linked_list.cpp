@@ -137,7 +137,7 @@ Node* CLL::searchItem(int data)
       return currt;
     }
     currt = currt->next;
-  }while(currt!=head);
+  }while(currt!=head->next);
   
   return nullptr;  
 }
