@@ -12,6 +12,9 @@ class DynArray
     int capacity;
     int last_index;
     int *ptr;
+  protected:
+    void doubleArray();
+    void halfArray();  
   public:
     DynArray(int cap)
     {
@@ -19,8 +22,6 @@ class DynArray
       last_index =-1;
       ptr = new int[capacity];
     }  
-    void doubleArray();
-    void halfArray();
     int current_capacity();
     bool isEmpty();
     bool isFull();
