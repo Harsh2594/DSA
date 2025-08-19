@@ -15,16 +15,26 @@ class CLL
       CLL(){tail=nullptr;}
       ~CLL()
       {
-
+        if(tail==nullptr){return;}
+        Node *currt=tail->next;
+        Node *temp;
+        do
+        {
+          temp=currt;
+          currt=currt->next;
+          delete temp;
+        } while (currt!=tail);
+        delete currt;
+        tail=nullptr;
       }
-    void insertAtStart(int);
-    void insertAtEnd(int);
-    void insertAfter(Node*,int);
-    Node* searchItem(int);
-    void deleteFirst();
-    void deleteLast();
-    void deleteNode(Node*);
-};
+      void insertAtStart(int);
+      void insertAtEnd(int);
+      void insertAfter(Node*,int);
+      Node* searchItem(int);
+      void deleteFirst();
+      void deleteLast();
+      void deleteNode(Node*);
+  };
 
 void CLL::insertAtStart(int data)
 {
